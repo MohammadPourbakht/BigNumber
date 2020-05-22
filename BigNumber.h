@@ -9,6 +9,7 @@ class BigNumber {
     friend std::ostream& operator<<( std::ostream & output, const BigNumber & myBig );
     friend std::istream& operator>>( std::istream & input, BigNumber & myBig );
     friend BigNumber operator+( const BigNumber & num1, const BigNumber & num2);
+    friend BigNumber operator-( const BigNumber & num1, const BigNumber & num2);
 private:
     bool sign;
     int8_t * numArray = nullptr;
