@@ -4,7 +4,7 @@ using namespace std;
 
 
 BigNumber MyBigNumber::multByOneDigit(const BigNumber &num1, const int8_t &num2) {
-    if(num2>9 | num2 < 1){
+    if(num2>9 | num2 < 0){
         throw invalid_argument("bayad yek raqmi bashad!");
     }
 
@@ -69,6 +69,19 @@ BigNumber operator *(const BigNumber &num1, const BigNumber &num2) {
     }
 
     return sum;
+}
+
+BigNumber MyBigNumber::power(const BigNumber & myBig , const unsigned int myNumber) {
+    BigNumber power = myBig;
+    BigNumber a {1};
+    if( myNumber == 0 ){
+        return a;
+    }
+    size_t i{1};
+    for (; i < myNumber; ++i) {
+        power = power * myBig;
+    }
+    return  power;
 }
 
 
