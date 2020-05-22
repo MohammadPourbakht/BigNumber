@@ -19,7 +19,7 @@ protected:
     bool validate( const std::string & str, const std::string & pattern);
     unsigned numOfTrimCharsOnLeft( const std::string & str );
 
-    int8_t& operator[](size_t index);
+
 
 
     //max(a, b)    a.max(b)
@@ -63,6 +63,8 @@ public:
     BigNumber  operator--(int);  //operator -- post
 
     BigNumber(){}
+    int8_t& operator[](size_t index);
+    void setSignes(bool mySign);
 };
 
 

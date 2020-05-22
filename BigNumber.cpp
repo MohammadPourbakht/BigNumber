@@ -458,3 +458,7 @@ BigNumber BigNumber::operator--(int) {
     return temp;
 }
 
+void BigNumber::setSignes(bool mySign){
+     sign = mySign;
+}
+

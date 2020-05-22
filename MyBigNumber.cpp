@@ -1,9 +1,13 @@
 #include "MyBigNumber.h"
-
+#include <stdexcept>
 using namespace std;
 
 
 BigNumber MyBigNumber::multByOneDigit(const BigNumber &num1, const int8_t &num2) {
+    if(num2>9 | num2 < 1){
+        throw invalid_argument("bayad yek raqmi bashad!");
+    }
+
     MyBigNumber multiply;
 
 
@@ -46,6 +50,25 @@ BigNumber operator<<(const BigNumber &myBig, unsigned shift) {
         ++j;
     }
     return temp;
+}
+
+BigNumber operator *(const BigNumber &num1, const BigNumber &num2) {
+    const BigNumber bMax = BigNumber::unsignedMax(num1, num2);
+    const  BigNumber bMin = BigNumber::unsignedMin(num1, num2);
+
+    size_t i{0};
+    BigNumber sum = "0";
+
+    for (; i < bMin.getNumOfDigits(); ++i) {
+    sum =  sum +  ((MyBigNumber::multByOneDigit(bMax,bMin[i])) <<i );
+    }
+    if(num1.getSign() == num2.getSign()){
+        sum.setSignes(true);
+    }else{
+        sum.setSignes(false);
+    }
+
+    return sum;
 }
 
 
