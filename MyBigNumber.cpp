@@ -30,5 +30,25 @@ BigNumber MyBigNumber::multByOneDigit(const BigNumber &num1, const int8_t &num2)
     return multiply;
      }
 
+BigNumber operator<<(const BigNumber &myBig, unsigned shift) {
+    MyBigNumber temp;
+
+    temp.sign = myBig.getSign();
+    temp.numOfDigits = myBig.getNumOfDigits()+ shift;
+    temp.numArray = new int8_t[temp.numOfDigits];
+    size_t i{0};
+    for( ; i < shift; ++i){
+        temp[i] = 0 ;
+    }
+    size_t j{0};
+    for( ; i < temp.numOfDigits; ++i){
+        temp[i] = myBig[j];
+        ++j;
+    }
+    return temp;
+}
+
+
+
 
 
