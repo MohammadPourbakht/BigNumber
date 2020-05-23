@@ -64,7 +64,9 @@ public:
 
     BigNumber(){}
     int8_t& operator[](size_t index);
-    void setSignes(bool mySign);
+
+    void setSign(bool mySign);
+
 };
 
 

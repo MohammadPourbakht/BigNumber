@@ -63,9 +63,9 @@ BigNumber operator *(const BigNumber &num1, const BigNumber &num2) {
     sum =  sum +  ((MyBigNumber::multByOneDigit(bMax,bMin[i])) <<i );
     }
     if(num1.getSign() == num2.getSign()){
-        sum.setSignes(true);
+        sum.setSign(true);
     }else{
-        sum.setSignes(false);
+        sum.setSign(false);
     }
 
     return sum;
@@ -83,6 +83,27 @@ BigNumber MyBigNumber::power(const BigNumber & myBig , const unsigned int myNumb
     }
     return  power;
 }
+
+BigNumber MyBigNumber::operator()( unsigned andis, unsigned num) {
+    if(num > numOfDigits){                                                 ///////// baghie shart ha ???
+        throw invalid_argument("bayad yek raqmi bashad!");
+    }
+
+    MyBigNumber myBig;
+    myBig.sign = true;
+    myBig.numOfDigits = num;
+    myBig.numArray = new int8_t[myBig.numOfDigits];
+
+    unsigned int i = (andis - num)+1;
+        for (int j = 0; j <num ; ++j) {
+            myBig[j] = numArray[i];
+            ++i;
+        }
+
+    return myBig;
+}
+
+
 
 
 

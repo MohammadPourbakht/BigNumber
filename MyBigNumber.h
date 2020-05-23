@@ -10,6 +10,8 @@ public:
     friend BigNumber operator << ( const BigNumber& myBig , unsigned shift );
     friend BigNumber operator *( const BigNumber & num1, const BigNumber & num2);
     static  BigNumber power ( const BigNumber & myBig , const unsigned int  myNumber );
+
+    BigNumber operator () ( unsigned andis , unsigned num );
 };
 
 
