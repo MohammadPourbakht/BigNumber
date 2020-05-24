@@ -19,6 +19,9 @@ public:
     MyBigNumber( const char * myCharArray ) ;
     MyBigNumber(const long & intNum );
     MyBigNumber & operator=(const MyBigNumber & myBigNumber);
+    MyBigNumber ( const MyBigNumber & myBig );          // copy constructor
+
+
     std::string toString() const;          //override
     std::string toString( int numOfHello );   //overload
 

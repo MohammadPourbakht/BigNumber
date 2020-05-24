@@ -129,6 +129,7 @@ MyBigNumber & MyBigNumber:: operator=(const MyBigNumber & myBigNumber){
             numArray[i] = myBigNumber[i];
         }
     }
+    return *this;
 }
 
 std::string MyBigNumber::toString() const {  //override
@@ -148,6 +149,9 @@ std::string MyBigNumber::toString( int numOfHello ){   //overload
 
 
 }
+
+MyBigNumber::MyBigNumber(const MyBigNumber &myBig) : BigNumber(myBig) {}   // copy constructor
+
 
 
 
