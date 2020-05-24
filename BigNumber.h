@@ -64,8 +64,8 @@ public:
 
     BigNumber(){}
     int8_t& operator[](size_t index);
-
     void setSign(bool mySign);
+    std::string toString() const;
 
 };
 

@@ -1,5 +1,7 @@
 #include "BigNumber.h"
 #include <stdexcept>
+#include <sstring>
+
 
 using namespace std;
 
@@ -462,4 +464,14 @@ void BigNumber::setSign(bool mySign){
      sign = mySign;
 }
 
+std::string BigNumber:: toString() const {
+    ostringstream output;
+    if (!sign) {
+        output << '-';
+    }
 
+    for (int i{(int) (numOfDigits - 1)}; i >= 0; --i) {
+        output << (int8_t) (numArray[i] + 48);
+    }
+    return output.str();
+}
