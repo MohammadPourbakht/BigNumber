@@ -118,7 +118,17 @@ MyBigNumber::MyBigNumber(const std::string &str) : BigNumber(str) {}
 MyBigNumber::MyBigNumber( const char * myCharArray ) :BigNumber(myCharArray){}
 MyBigNumber::MyBigNumber(const long & intNum ) : BigNumber(intNum){ }
 
-
+MyBigNumber & MyBigNumber:: operator=(const MyBigNumber & myBigNumber){
+    if( &myBigNumber != this ){
+        sign = myBigNumber.sign;
+        numOfDigits = myBigNumber.numOfDigits;
+        delete[] numArray;
+        numArray = new int8_t(numOfDigits);
+        for (int i = 0; i <numOfDigits ; ++i) {
+            numArray[i] = myBigNumber[i];
+        }
+    }
+}
 
 
 
