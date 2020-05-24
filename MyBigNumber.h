@@ -12,6 +12,13 @@ public:
     static  BigNumber power ( const BigNumber & myBig , const unsigned int  myNumber );
 
     BigNumber operator () ( unsigned andis , unsigned num );
+
+    MyBigNumber( BigNumber myBig);
+    MyBigNumber(){};
+    MyBigNumber( const std::string & str );
+    MyBigNumber( const char * myCharArray ) ;
+    MyBigNumber(const long & intNum );
+
 };
 
 

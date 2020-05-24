@@ -1,5 +1,6 @@
 #include "MyBigNumber.h"
 #include <stdexcept>
+#include <iostream>
 using namespace std;
 
 
@@ -84,7 +85,7 @@ BigNumber MyBigNumber::power(const BigNumber & myBig , const unsigned int myNumb
     return  power;
 }
 
-BigNumber MyBigNumber::operator()( unsigned andis, unsigned num) {
+BigNumber MyBigNumber::operator()( unsigned andis , unsigned num) {
     if(num > numOfDigits){                                                 ///////// baghie shart ha ???
         throw invalid_argument("bayad yek raqmi bashad!");
     }
@@ -102,6 +103,22 @@ BigNumber MyBigNumber::operator()( unsigned andis, unsigned num) {
 
     return myBig;
 }
+
+MyBigNumber::MyBigNumber(BigNumber myBig) {
+    sign = myBig.getSign();
+    numOfDigits = myBig.getNumOfDigits();
+    numArray = new int8_t[numOfDigits];
+    for (int i = 0; i < numOfDigits ; ++i) {
+        numArray[i] = myBig[i];
+    }
+}
+
+
+MyBigNumber::MyBigNumber(const std::string &str) : BigNumber(str) {}
+MyBigNumber::MyBigNumber( const char * myCharArray ) :BigNumber(myCharArray){}
+MyBigNumber::MyBigNumber(const long & intNum ) : BigNumber(intNum){ }
+
+
 
 
 
