@@ -20,7 +20,7 @@ public:
     MyBigNumber(const long & intNum );
     MyBigNumber & operator=(const MyBigNumber & myBigNumber);
     MyBigNumber ( const MyBigNumber & myBig );          // copy constructor
-
+    MyBigNumber ( MyBigNumber && myBig ) noexcept;      // move constructor
 
     std::string toString() const;          //override
     std::string toString( int numOfHello );   //overload

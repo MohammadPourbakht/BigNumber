@@ -151,7 +151,7 @@ std::string MyBigNumber::toString( int numOfHello ){   //overload
 }
 
 MyBigNumber::MyBigNumber(const MyBigNumber &myBig) : BigNumber(myBig) {}   // copy constructor
-
+MyBigNumber::MyBigNumber(MyBigNumber &&myBig) noexcept : BigNumber(myBig) {}   // move constructor
 
 
 
