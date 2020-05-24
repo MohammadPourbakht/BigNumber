@@ -21,6 +21,8 @@ public:
     MyBigNumber & operator=(const MyBigNumber & myBigNumber);
     MyBigNumber ( const MyBigNumber & myBig );          // copy constructor
     MyBigNumber ( MyBigNumber && myBig ) noexcept;      // move constructor
+    MyBigNumber & operator=(MyBigNumber && myBig) noexcept ;   // move assignment overloading
+
 
     std::string toString() const;          //override
     std::string toString( int numOfHello );   //overload

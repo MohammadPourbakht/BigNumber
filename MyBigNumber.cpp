@@ -147,12 +147,20 @@ std::string MyBigNumber::toString( int numOfHello ){   //overload
     output << BigNumber::toString();
     return output.str();
 
-
 }
 
 MyBigNumber::MyBigNumber(const MyBigNumber &myBig) : BigNumber(myBig) {}   // copy constructor
 MyBigNumber::MyBigNumber(MyBigNumber &&myBig) noexcept : BigNumber(myBig) {}   // move constructor
-
+MyBigNumber &MyBigNumber::operator=(MyBigNumber &&myBig) noexcept {    // move assignment overloading
+    if( &myBig != this ){
+        sign = myBig.sign;
+        numOfDigits = myBig.numOfDigits;
+        delete [] numArray;
+        numArray = myBig.numArray;
+        myBig.numArray = nullptr;
+    }
+    return *this;
+}
 
 
 
