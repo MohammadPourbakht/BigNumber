@@ -1,6 +1,7 @@
 #include "MyBigNumber.h"
 #include <stdexcept>
 #include <iostream>
+#include <sstream>
 using namespace std;
 
 
@@ -130,6 +131,23 @@ MyBigNumber & MyBigNumber:: operator=(const MyBigNumber & myBigNumber){
     }
 }
 
+std::string MyBigNumber::toString() const {  //override
+    ostringstream output;
+    output << "I am a MyBigNumber Object" << endl;
+    output << BigNumber::toString();
+    return output.str();
+}
+
+std::string MyBigNumber::toString( int numOfHello ){   //overload
+    ostringstream output;
+    for (int i = 1; i <= numOfHello ; ++i) {
+        output <<"Hello" <<endl;
+    }
+    output << BigNumber::toString();
+    return output.str();
+
+
+}
 
 
 

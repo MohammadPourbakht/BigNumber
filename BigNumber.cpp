@@ -1,6 +1,6 @@
 #include "BigNumber.h"
 #include <stdexcept>
-#include <sstring>
+#include <sstream>
 
 
 using namespace std;
