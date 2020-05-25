@@ -28,6 +28,7 @@ public:
     std::string toString( int numOfHello );   //overload
 
     friend BigNumber operator / ( const BigNumber & num1, const BigNumber & num2);
+    friend BigNumber operator % ( const BigNumber & num1, const BigNumber & num2);
 
 
 };
