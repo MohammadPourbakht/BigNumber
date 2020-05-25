@@ -4,15 +4,12 @@
 #include <sstream>
 using namespace std;
 
-
-BigNumber MyBigNumber::multByOneDigit(const BigNumber &num1, const int8_t &num2) {
+BigNumber MyBigNumber::multByOneDigit(const BigNumber &num1, const int8_t &num2) {  //zarb tak ragham
     if(num2>9 | num2 < 0){
-        throw invalid_argument("bayad yek raqmi bashad!");
+        throw out_of_range("multByOneDigit bayad yek raqmi bashad!!!");
     }
 
     MyBigNumber multiply;
-
-
     multiply.sign = true;
     multiply.numOfDigits = num1.getNumOfDigits() + 1;
     multiply.numArray = new int8_t[multiply.numOfDigits];
@@ -36,9 +33,8 @@ BigNumber MyBigNumber::multByOneDigit(const BigNumber &num1, const int8_t &num2)
     return multiply;
      }
 
-BigNumber operator<<(const BigNumber &myBig, unsigned shift) {
+BigNumber operator<<(const BigNumber &myBig, unsigned shift) {   //shift b chap  ,,,ezafe kardn tedad argham adad
     MyBigNumber temp;
-
     temp.sign = myBig.getSign();
     temp.numOfDigits = myBig.getNumOfDigits()+ shift;
     temp.numArray = new int8_t[temp.numOfDigits];
@@ -54,29 +50,29 @@ BigNumber operator<<(const BigNumber &myBig, unsigned shift) {
     return temp;
 }
 
-BigNumber operator *(const BigNumber &num1, const BigNumber &num2) {
+BigNumber operator *(const BigNumber &num1, const BigNumber &num2) {        //operator *
     const BigNumber bMax = BigNumber::unsignedMax(num1, num2);
     const  BigNumber bMin = BigNumber::unsignedMin(num1, num2);
 
     size_t i{0};
-    BigNumber sum = "0";
+    BigNumber zarb = "0";
 
     for (; i < bMin.getNumOfDigits(); ++i) {
-    sum =  sum +  ((MyBigNumber::multByOneDigit(bMax,bMin[i])) <<i );
+        zarb = zarb + ((MyBigNumber::multByOneDigit(bMax, bMin[i])) << i );   //ba estefade az zarb tak ragham va <<
     }
     if(num1.getSign() == num2.getSign()){
-        sum.setSign(true);
+        zarb.setSign(true);
     }else{
-        sum.setSign(false);
+        zarb.setSign(false);
     }
 
-    return sum;
+    return zarb;
 }
 
-BigNumber MyBigNumber::power(const BigNumber & myBig , const unsigned int myNumber) {
+BigNumber MyBigNumber::power(const BigNumber & myBig , const unsigned int myNumber) {         //tavan
     BigNumber power = myBig;
     BigNumber a {1};
-    if( myNumber == 0 ){
+    if( myNumber == 0 ){    //b tavane sefr
         return a;
     }
     size_t i{1};
@@ -86,9 +82,9 @@ BigNumber MyBigNumber::power(const BigNumber & myBig , const unsigned int myNumb
     return  power;
 }
 
-BigNumber MyBigNumber::operator()( unsigned andis , unsigned num) {
-    if(num > numOfDigits){                                                 ///////// baghie shart ha ???
-        throw invalid_argument("bayad yek raqmi bashad!");
+BigNumber MyBigNumber::operator()( unsigned andis , unsigned num) {     //operator (), az andis b andaze num  az adad joda mikonad
+    if(num > numOfDigits || andis > numOfDigits - 1){
+        throw out_of_range("operator() , kharej az mahdoode!!!");
     }
 
     MyBigNumber myBig;
@@ -162,12 +158,12 @@ MyBigNumber &MyBigNumber::operator=(MyBigNumber &&myBig) noexcept {    // move a
     return *this;
 }
 
-BigNumber operator / ( const BigNumber & num1, const BigNumber & num2){
+BigNumber operator / ( const BigNumber & num1, const BigNumber & num2){         //operatoe /
     MyBigNumber bMax = BigNumber::unsignedMax(num1, num2);
     MyBigNumber bMin = BigNumber::unsignedMin(num1, num2);
 
     if(num2 == "0"){
-        throw invalid_argument("makhraj nmitavanad 0 bashad!!");
+        throw out_of_range("makhraj nmitavanad 0 bashad!!");
     }
     if(num1 == num2){
         return 1;
@@ -180,26 +176,24 @@ BigNumber operator / ( const BigNumber & num1, const BigNumber & num2){
         unsigned digit1 = bMax.getNumOfDigits();
         unsigned digit2 = bMin.getNumOfDigits();
 
-        MyBigNumber temp2 = bMax(digit1 - 1, digit2);
-
+        MyBigNumber temp2 = bMax(digit1 - 1, digit2);  //joda kardan az adad bozorg tar
         if (temp2 < bMin) {
             temp2 = bMax(digit1 - 1, digit2 + 1);
         }
-        unsigned digit3 = temp2.getNumOfDigits();
-        unsigned digit4 = temp2.getNumOfDigits();
+
+        unsigned digit3 = temp2.getNumOfDigits();       // tekan mikhorad
+        unsigned digit4 = temp2.getNumOfDigits();       // sabet
 
         MyBigNumber hasel;
         MyBigNumber baghimande;
 
-
-        if (bMax.getSign() == bMin.getSign()) {
+        if (bMax.getSign() == bMin.getSign()) {         // sign javab naha e
             hasel.sign = true;
         } else {
             hasel.sign = false;
         }
 
-
-        if (temp2.getNumOfDigits() == bMin.getNumOfDigits()) {
+        if (temp2.getNumOfDigits() == bMin.getNumOfDigits()) {                          //numOfDigits javab nahae
             hasel.numOfDigits = bMax.getNumOfDigits() - bMin.getNumOfDigits() + 1;
         } else {
             hasel.numOfDigits = bMax.getNumOfDigits() - bMin.getNumOfDigits();
@@ -209,8 +203,8 @@ BigNumber operator / ( const BigNumber & num1, const BigNumber & num2){
 
         int j = 1;
         for (int i = hasel.getNumOfDigits() - 1 ; i >= 0  ; --i) {
-            if(temp2.getNumOfDigits() == bMin.getNumOfDigits()){
-                if(temp2 < bMin){    //baraye charkhesh    // 0 samte chap havaset bshe     //  4234 / 21
+            if(temp2.getNumOfDigits() == bMin.getNumOfDigits()){        //halate aval
+                if(temp2 < bMin){    //baraye charkhesh
                   hasel[i] = 0;
                 }else {
                   hasel[i] = temp2[digit3 - 1] / bMin[digit2 - 1];
@@ -218,8 +212,8 @@ BigNumber operator / ( const BigNumber & num1, const BigNumber & num2){
                         hasel[i] = hasel[i] - 1;
                     }
                }
-            } else{
-                if(temp2 < bMin){    //baraye charkhesh    // 0 samte chap havaset bshe     //  4234 / 21
+            } else{                                                     //halate dovom
+                if(temp2 < bMin){    //baraye charkhesh
                     hasel[i] = 0;
                 }else {
                     hasel[i] =  ((temp2[digit3 - 1] * 10) + temp2[digit3-2] )/ bMin[digit2 - 1];
@@ -227,38 +221,27 @@ BigNumber operator / ( const BigNumber & num1, const BigNumber & num2){
                         hasel[i] = hasel[i] - 1;
                     }
                 }
-
             }
-
-
-                baghimande = BigNumber::unsignedSubtract(temp2, (hasel[i] * bMin));
+            baghimande = BigNumber::unsignedSubtract(temp2, (hasel[i] * bMin));
             if(i>0) {         //bare akhar chizi nadarim biad pain braye temp2[0]
                 temp2 = baghimande;
                 temp2 = (temp2 << 1);
                 temp2[0] = bMax[digit1 - digit4 - j];
                 digit3 = temp2.numOfDigits;
                 j++;
-
-
             }
-
     }
-
     return hasel;
         }
 
     }
 
-
-
-
-
-BigNumber operator % ( const BigNumber & num1, const BigNumber & num2){
+BigNumber operator % ( const BigNumber & num1, const BigNumber & num2){         //operatoe %
     MyBigNumber bMax = BigNumber::unsignedMax(num1, num2);
     MyBigNumber bMin = BigNumber::unsignedMin(num1, num2);
 
     if(num2 == "0"){
-        throw invalid_argument("makhraj nmitavanad 0 bashad!!");
+        throw out_of_range("makhraj nmitavanad 0 bashad!!");
     }
     if(num1 == num2){
         return 1;
@@ -282,13 +265,11 @@ BigNumber operator % ( const BigNumber & num1, const BigNumber & num2){
         MyBigNumber hasel;
         MyBigNumber baghimande;
 
-
         if (bMax.getSign() == bMin.getSign()) {
             hasel.sign = true;
         } else {
             hasel.sign = false;
         }
-
 
         if (temp2.getNumOfDigits() == bMin.getNumOfDigits()) {
             hasel.numOfDigits = bMax.getNumOfDigits() - bMin.getNumOfDigits() + 1;
@@ -301,7 +282,7 @@ BigNumber operator % ( const BigNumber & num1, const BigNumber & num2){
         int j = 1;
         for (int i = hasel.getNumOfDigits() - 1 ; i >= 0  ; --i) {
             if(temp2.getNumOfDigits() == bMin.getNumOfDigits()){
-                if(temp2 < bMin){    //baraye charkhesh    // 0 samte chap havaset bshe     //  4234 / 21
+                if(temp2 < bMin){    //baraye charkhesh
                     hasel[i] = 0;
                 }else {
                     hasel[i] = temp2[digit3 - 1] / bMin[digit2 - 1];
@@ -310,7 +291,7 @@ BigNumber operator % ( const BigNumber & num1, const BigNumber & num2){
                     }
                 }
             } else{
-                if(temp2 < bMin){    //baraye charkhesh    // 0 samte chap havaset bshe     //  4234 / 21
+                if(temp2 < bMin){    //baraye charkhesh
                     hasel[i] = 0;
                 }else {
                     hasel[i] =  ((temp2[digit3 - 1] * 10) + temp2[digit3-2] )/ bMin[digit2 - 1];
@@ -318,9 +299,7 @@ BigNumber operator % ( const BigNumber & num1, const BigNumber & num2){
                         hasel[i] = hasel[i] - 1;
                     }
                 }
-
             }
-
 
             baghimande = BigNumber::unsignedSubtract(temp2, (hasel[i] * bMin));
             if(i>0) {         //bare akhar chizi nadarim biad pain braye temp2[0]
@@ -333,7 +312,6 @@ BigNumber operator % ( const BigNumber & num1, const BigNumber & num2){
         }
         return baghimande;
     }
-
 }
 
 

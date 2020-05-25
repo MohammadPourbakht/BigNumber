@@ -6,12 +6,12 @@ class MyBigNumber: public BigNumber {
 private:
 
 public:
-    static BigNumber multByOneDigit( const BigNumber& num1 , const int8_t& num2 );
-    friend BigNumber operator << ( const BigNumber& myBig , unsigned shift );
-    friend BigNumber operator *( const BigNumber & num1, const BigNumber & num2);
-    static  BigNumber power ( const BigNumber & myBig , const unsigned int  myNumber );
+    static BigNumber multByOneDigit( const BigNumber& num1 , const int8_t& num2 );    //zarb tak ragham
+    friend BigNumber operator << ( const BigNumber& myBig , unsigned shift );          //shift b chap  ,,,ezafe kardn tedad argham adad
+    friend BigNumber operator *( const BigNumber & num1, const BigNumber & num2);       //operator *
+    static  BigNumber power ( const BigNumber & myBig , const unsigned int  myNumber ); //tavan
 
-    BigNumber operator () ( unsigned andis , unsigned num );
+    BigNumber operator () ( unsigned andis , unsigned num );  //operator (), az andis b andaze num  az adad joda mikonad
 
     MyBigNumber( BigNumber myBig);
     MyBigNumber(){};
@@ -27,8 +27,8 @@ public:
     std::string toString() const;          //override
     std::string toString( int numOfHello );   //overload
 
-    friend BigNumber operator / ( const BigNumber & num1, const BigNumber & num2);
-    friend BigNumber operator % ( const BigNumber & num1, const BigNumber & num2);
+    friend BigNumber operator / ( const BigNumber & num1, const BigNumber & num2);          //operatoe /
+    friend BigNumber operator % ( const BigNumber & num1, const BigNumber & num2);          //operatoe %
 
 
 };

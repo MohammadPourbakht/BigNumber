@@ -53,7 +53,7 @@ unsigned BigNumber::numOfTrimCharsOnLeft(const std::string &str) {
 
 void BigNumber:: setValues( const std::string & str ){
     if( !validate( str, "[+-]?[0-9]+") ){
-        throw invalid_argument("A number must include just decimal digits and + or -");
+        throw out_of_range("A number must include just decimal digits and + or -");
     }
 
     sign = ( str[0] != '-' );
@@ -83,7 +83,7 @@ bool BigNumber::validate(const std::string &str, const std::string &pattern) {
     return regex_match(str, regPattern);
 }
 
-std::ostream & operator<<( std::ostream & output, const BigNumber & myBig ){
+std::ostream & operator<<( std::ostream & output, const BigNumber & myBig ){    //operator <<
     if( myBig.sign == false ){
         output << '-';
     }
@@ -93,7 +93,7 @@ std::ostream & operator<<( std::ostream & output, const BigNumber & myBig ){
     return output;
 }
 
-std::istream &operator>>(std::istream &input, BigNumber &myBig) {
+std::istream &operator>>(std::istream &input, BigNumber &myBig) {   //operator >>
     string str;
     input >> str;
     myBig.setValues(str);
@@ -114,7 +114,7 @@ BigNumber & BigNumber:: operator=(const BigNumber & rightNum){
     return *this;
 }
 
-BigNumber BigNumber:: operator-() const{
+BigNumber BigNumber:: operator-() const{    //gharine kardan bigNumber
     BigNumber temp;
     temp.sign = !sign;
     temp.numOfDigits = numOfDigits;
@@ -127,19 +127,19 @@ BigNumber BigNumber:: operator-() const{
 
 int8_t & BigNumber::operator[](size_t index){
     if( index < 0 || index >= numOfDigits){
-        throw out_of_range("The index is out of range.");
+        throw out_of_range("operator[] , The index is out of range.");
     }
     return numArray[index];
 }
 
 int BigNumber::operator[](size_t index) const{
     if( index < 0 || index >= numOfDigits){
-        throw out_of_range("The index is out of range.");
+        throw out_of_range("operator[] ,The index is out of range.");
     }
     return numArray[index];
 }
 
-bool BigNumber:: operator==( const BigNumber & myBig) const{
+bool BigNumber:: operator==( const BigNumber & myBig) const{        //operator ==
     if(sign != myBig.sign){
         return false;
     }
@@ -154,7 +154,7 @@ bool BigNumber:: operator==( const BigNumber & myBig) const{
     return true;
 }
 
-bool BigNumber::operator!=(const BigNumber & myBig) const {
+bool BigNumber::operator!=(const BigNumber & myBig) const {     //operator !=
     return !(*this == myBig);
 }
 
@@ -218,14 +218,14 @@ BigNumber BigNumber::unsignedMin(const BigNumber &num1, const BigNumber &num2) {
 }
 
 bool BigNumber::unsignedGreaterOrEqual(const BigNumber &num1, const BigNumber &num2) {
-    return ( unsignedMax(num1, num2) == num1 );
+    return ( unsignedMax(num1 , num2) == num1 );
 }
 
 bool BigNumber:: unsignedLessOrEqual( const BigNumber& num1, const BigNumber& num2){
     return ( unsignedMin(num2, num1) == num1 );
 }
 
-bool BigNumber:: operator>=( const BigNumber & myBig) const{
+bool BigNumber:: operator>=( const BigNumber & myBig) const{    //operator >=
     if( sign == true && myBig.sign == false){
         return true;
     }
@@ -243,7 +243,7 @@ bool BigNumber:: operator>=( const BigNumber & myBig) const{
     }
 }
 
-bool BigNumber:: operator<=( const BigNumber & myBig) const{
+bool BigNumber:: operator<=( const BigNumber & myBig) const{    //operator <=
     if( sign == true && myBig.sign == false){
         return false;
     }
@@ -261,15 +261,15 @@ bool BigNumber:: operator<=( const BigNumber & myBig) const{
     }
 }
 
-bool BigNumber:: operator>( const BigNumber & myBig) const{
+bool BigNumber:: operator>( const BigNumber & myBig) const{     //operator >
     return !(*this <= myBig);
 }
 
-bool BigNumber:: operator<( const BigNumber & myBig) const{
+bool BigNumber:: operator<( const BigNumber & myBig) const{         //operator <
     return !(*this >= myBig);
 }
 
-BigNumber BigNumber:: absoluteValue() const{
+BigNumber BigNumber:: absoluteValue() const{    // ghadre motlagh
     BigNumber temp;
     temp.sign = true;
     temp.numOfDigits = numOfDigits;
@@ -363,7 +363,7 @@ BigNumber BigNumber:: unsignedSubtract( const BigNumber& num1, const BigNumber& 
     return sub;
 }
 
-BigNumber operator+( const BigNumber & num1, const BigNumber & num2){
+BigNumber operator+( const BigNumber & num1, const BigNumber & num2){   //operator +
     BigNumber sum;
     if(num1.sign == num2.sign){   // -5 + 5
         sum = BigNumber:: unsignedAdd(num1, num2);
@@ -379,9 +379,9 @@ BigNumber operator+( const BigNumber & num1, const BigNumber & num2){
     return sum;
 }
 
-BigNumber BigNumber:: operator>>( unsigned shift ){
+BigNumber BigNumber:: operator>>( unsigned shift ){         //operator shift ,,numOfDigit rakam mikonad az rast biroon mindaze
     if ( numOfDigits < shift ){
-        throw invalid_argument("Shift must be less than number of digits.");
+        throw out_of_range("Shift must be less than number of digits.");
     }
 
     BigNumber temp;
@@ -400,7 +400,7 @@ BigNumber BigNumber:: operator>>( unsigned shift ){
     return temp;
 }
 
-BigNumber  operator-( const BigNumber & num1, const BigNumber & num2){
+BigNumber  operator-( const BigNumber & num1, const BigNumber & num2){      //operator -
     BigNumber sub;
     BigNumber bMax = BigNumber::unsignedMax(num1, num2);
     BigNumber bMin = BigNumber::unsignedMin(num1, num2);
@@ -439,22 +439,22 @@ BigNumber  operator-( const BigNumber & num1, const BigNumber & num2){
     return  sub;
 }
 
-BigNumber & BigNumber::operator++() {
+BigNumber & BigNumber::operator++() {   //operator ++ piri
     *this = *this +1;
      return * this;
 }
 
-BigNumber BigNumber::operator++(int) {
+BigNumber BigNumber::operator++(int) {  //operator ++ post
     BigNumber temp = *this;
     *this = *this +1;
     return temp;
 }
 
-BigNumber & BigNumber::operator--() {
+BigNumber & BigNumber::operator--() {       //operator -- piri
     *this = *this -1;
     return * this;
 }
-BigNumber BigNumber::operator--(int) {
+BigNumber BigNumber::operator--(int) {      //operator -- post
     BigNumber temp = *this;
     *this = *this -1;
     return temp;
