@@ -162,6 +162,95 @@ MyBigNumber &MyBigNumber::operator=(MyBigNumber &&myBig) noexcept {    // move a
     return *this;
 }
 
+BigNumber operator / ( const BigNumber & num1, const BigNumber & num2){
+    MyBigNumber bMax = BigNumber::unsignedMax(num1, num2);
+    MyBigNumber bMin = BigNumber::unsignedMin(num1, num2);
+
+    if(num2 == "0"){
+        throw invalid_argument("makhraj nmitavanad 0 bashad!!");
+    }
+    if(num1 == num2){
+        return 1;
+    }
+    if(num1 == bMin){
+        return "0";
+    }
+
+    else {
+        unsigned digit1 = bMax.getNumOfDigits();
+        unsigned digit2 = bMin.getNumOfDigits();
+
+        MyBigNumber temp2 = bMax(digit1 - 1, digit2);
+
+        if (temp2 < bMin) {
+            temp2 = bMax(digit1 - 1, digit2 + 1);
+        }
+        unsigned digit3 = temp2.getNumOfDigits();
+        unsigned digit4 = temp2.getNumOfDigits();
+
+        MyBigNumber hasel;
+        MyBigNumber baghimande;
+
+
+        if (bMax.getSign() == bMin.getSign()) {
+            hasel.sign = true;
+        } else {
+            hasel.sign = false;
+        }
+
+
+        if (temp2.getNumOfDigits() == bMin.getNumOfDigits()) {
+            hasel.numOfDigits = bMax.getNumOfDigits() - bMin.getNumOfDigits() + 1;
+        } else {
+            hasel.numOfDigits = bMax.getNumOfDigits() - bMin.getNumOfDigits();
+        }
+
+        hasel.numArray = new int8_t[hasel.numOfDigits];
+
+        int j = 1;
+        for (int i = hasel.getNumOfDigits() - 1 ; i >= 0  ; --i) {
+            if(temp2.getNumOfDigits() == bMin.getNumOfDigits()){
+                if(temp2 < bMin){    //baraye charkhesh    // 0 samte chap havaset bshe     //  4234 / 21
+                  hasel[i] = 0;
+                }else {
+                  hasel[i] = temp2[digit3 - 1] / bMin[digit2 - 1];
+                    if( temp2 < hasel[i] * bMin){
+                        hasel[i] = hasel[i] - 1;
+                    }
+               }
+            } else{
+                if(temp2 < bMin){    //baraye charkhesh    // 0 samte chap havaset bshe     //  4234 / 21
+                    hasel[i] = 0;
+                }else {
+                    hasel[i] =  ((temp2[digit3 - 1] * 10) + temp2[digit3-2] )/ bMin[digit2 - 1];
+                    if( temp2 < hasel[i] * bMin){
+                        hasel[i] = hasel[i] - 1;
+                    }
+                }
+
+            }
+
+
+                baghimande = BigNumber::unsignedSubtract(temp2, (hasel[i] * bMin));
+            if(i>0) {         //bare akhar chizi nadarim biad pain braye temp2[0]
+                temp2 = baghimande;
+                temp2 = (temp2 << 1);
+                temp2[0] = bMax[digit1 - digit4 - j];
+                digit3 = temp2.numOfDigits;
+                j++;
+
+
+            }
+
+    }
+
+    return hasel;
+        }
+
+    }
+
+
+
 
 
 
