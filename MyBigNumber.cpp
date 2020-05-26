@@ -8,9 +8,18 @@ BigNumber MyBigNumber::multByOneDigit(const BigNumber &num1, const int8_t &num2)
     if(num2>9 | num2 < 0){
         throw out_of_range("multByOneDigit bayad yek raqmi bashad!!!");
     }
-
+    bool number2;
+    if(num2>=0){
+        number2 = true;
+    }else{
+        number2 = false;
+    }
     MyBigNumber multiply;
-    multiply.sign = true;
+    if( num1.getSign() == number2) {
+        multiply.sign = true;
+    }else{
+        multiply.sign = false;
+    }
     multiply.numOfDigits = num1.getNumOfDigits() + 1;
     multiply.numArray = new int8_t[multiply.numOfDigits];
 

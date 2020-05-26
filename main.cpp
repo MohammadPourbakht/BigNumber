@@ -27,7 +27,7 @@ int main() {
         cout << "BigNumber 2 * 3 = :  " << MyBigNumber::multByOneDigit(big2, 3) << endl;   //multByOneDigit
         cout << "BigNumber 1 * BigNumber 2 =  " << (big1 * big2) << endl;       //operator *
         cout << "BigNumber 1 / BigNumber 2 =  " << (big1 / big2) << endl;       //operator /
-        cout << "BigNumber2 ( 2 , 2 ) az andis 3 b toole 2 : " << big2(2, 2) << endl;  // operator ()
+        cout << "BigNumber2 ( 2 , 2 ) az andis 2 b toole 2 : " << big2(2, 2) << endl;  // operator ()
         cout << "BigNumber 1 ^ 2 =  " << MyBigNumber::power(big1, 2) << endl;         // tabe power
 
         cout << "Sign BigNumber 1 : " << big1.getSign() << endl;   //getSign
@@ -42,7 +42,7 @@ int main() {
         cout << "BigNumber 2 -- : " << (big2--) << endl;      //operator -- post
 
         big4 = big2;  //operator =
-        cout << "-BigNumber 4: " << (-big4);          //operator -
+        cout << "-BigNumber 4: " << (-big4) << endl;          //operator -
         cout << "BigNumber 4: " << big4 << endl;     //operator =
 
 
